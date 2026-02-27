@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows event game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- progress bar -->
+    <div id="progress-bar"></div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Warning screen -->
+    <div id="warning-screen">
+        <div class="warning">
+            <h1>⚠ WARNING!!! ⚠</h1>
+            <p>Boss Incoming</p>
+        </div>
+    </div>
+
+    <!-- Overlay for when a choice hasn't been made -->
+    <div id="overlay" class="overlay">
+        <div class="overlay-message">Please make a choice!</div>
+    </div>
+
+    <!-- Window Size -->
+    <div style="padding: 10px; position: fixed; top: 10px; left: 10px; z-index: 10000; color: white; background-color: gray;">
+        <h1 style="color: black;">Window status</h1>
+        <p id="windowSize" style="color: black;">Window Size: </p>
+        <p id="deviceType" style="color: black;">Device Type: </p>
+    </div>
+
+    <!-- Main Content Sections -->
+    <section>
+        <div class="hero">
+            <h1>Awakening</h1>
+            <p>You wake up in an unfamiliar field</p>
+            <button onclick="scrollToNextSection(this.closest('section'))" style="color: black;">Walk around</button>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-1">
+            <h1>Empty Field</h1><br>
+            <p>You come across an empty field and see three items</p>
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <button onclick="selectOption('book'), scrollToNextSectionSmart(this.closest('section'))">Take Book (+1 Int)</button>
+                <button onclick="selectOption('stick'), scrollToNextSectionStrong(this.closest('section'))">Take Stick (+1 Attk)</button>
+                <button onclick="selectOption('key'), scrollToNextSectionCurious(this.closest('section'))">Take Key (Item)</button>
+            </div>
+            <p class="result" id="result"></p>
+        </div>
+    </section>
+    
+    <section>
+        <div class="section-2">
+            <h1>The City</h1>
+            <p>You arrive at a city. You find three paths ahead.</p>
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <button onclick="choosePath('left'), scrollToNextSectionSmart(this.closest('section'))">Left Path (Academy)</button>
+                <button onclick="choosePath('center'), scrollToNextSectionStrong(this.closest('section'))">Center Path (Arena)</button>
+                <button onclick="choosePath('right'), scrollToNextSectionCurious(this.closest('section'))">Right Path (Museum)</button>
+            </div>
+            <p class="result" id="path-result"></p><br>
+            <p class="result" id="additional-result"></p>
+        </div>
+    </section>
+    
+    <section>
+        <div class="section-3">
+            <h1>An old adventurer</h1>
+            <p>You come across an old adventurer. He offers to teach you something.</p>
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <button onclick="teachMe('academics'), scrollToNextSectionSmart(this.closest('section'))">Academia</button>
+                <button onclick="teachMe('techniques'), scrollToNextSectionStrong(this.closest('section'))">Fighting Techniques</button>
+                <button onclick="teachMe('adventuring'), scrollToNextSectionCurious(this.closest('section'))">Adventuring</button>
+            </div>
+            <p class="result" id="lesson-result"></p>
+        </div>
+    </section>
+    
+    <!-- <section>
+        <div class="section-4">
+            <h1>The future</h1>
+            <p>what will you do with the rest of your time here?</p>
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <button onclick="makeChoice('learn'), scrollToNextSectionSmart(this.closest('section'))">Learn</button>
+                <button onclick="makeChoice('fight'), scrollToNextSectionStrong(this.closest('section'))">Fight</button>
+                <button onclick="makeChoice('explore'), scrollToNextSectionCurious(this.closest('section'))">Explore</button>
+            </div>
+            <p class="result" id="action-result"></p>
+        </div>
+    </section> -->
+
+    <section>
+        <div class="section-4">
+            <h1>The Boss: Infernal Golem</h1>
+            <p>You encounter an Infernal Golem. What do you do?</p>
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <button onclick="bossFight('weakness-academic'), scrollToNextSectionSmart(this.closest('section'))">Exploit its weakness</button>
+                <button onclick="bossFight('fight'), scrollToNextSectionStrong(this.closest('section'))">Fight it head on</button>
+                <button onclick="bossFight('weakness-intuit'), scrollToNextSectionCurious(this.closest('section'))">Figure out its weakness</button>
+            </div>
+            <p class="result" id="fight-result"></p>
+            <p class="result" id="additional-fight-result"></p>
+            <p class="result" id="saved?"></p>
+        </div>
+    </section>
+    
+    <section>
+        <div class="section-5">
+            <h1>Epilogue</h1>
+            <div style="grid-template-columns: auto;">
+                <p>Congratulations! You've reached the end.</p>
+                <p>You are <span id="final-result"></span></p>
+                <p id="additionalFluff"></p>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

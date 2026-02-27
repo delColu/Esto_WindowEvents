@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oh my gah</title>
+
+    <style>
+        /* Style for the loading screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Slight transparency */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2em;
+            z-index: 9999; /* Ensure it stays on top */
+            flex-direction: column;
+        }
+
+        /* Animation for the loading spinner */
+        .loader {
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-top: 8px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Style for body and sections */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            overflow-y: scroll; /* Ensure we can scroll */
+            height: 100vh;
+        }
+
+        section {
+            scroll-snap-align: start; /* Make sections snap to the start */
+        }
+
+        html, body {
+            scroll-snap-type: y mandatory;
+            height: 100%;
+            overflow-y: scroll;
+        }
+
+        .hero, .section-1, .section-2, .section-3, .section-4, .section-5 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .hero {
+            background-color: #f0f0f0;
+        }
+
+        .section-1 {
+            background-color: #790f0f;
+            display: flex;
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center */
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .section-1 h1, .section-2 h1, .section-3 h1, .section-4 h1 {
+            color: white;
+        }
+
+        .section-2 {
+            background-color: #072da7;
+             display: flex;
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center */
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .section-3 {
+            background-color: #0d7009;
+                        display: flex;
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center */
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .section-4 {
+            background: linear-gradient(45deg, #6a0b00, #a802c1);
+                        display: flex;
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center */
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .section-5 {
+            background: linear-gradient(45deg, black, white);
+                        display: flex;
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center */
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        /* Style for the button */
+        button {
+            padding: 12px 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border: 2px solid #fff;
+            border-radius: 8px;
+            background-color: transparent;
+            color: white;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #fff;
+            color: black;
+            transform: scale(1.1);
+        }
+
+        button:active {
+            transform: scale(1.05);
+        }
+
+        /* Added style for the result text */
+        .result {
+            font-size: 1.5em;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Window Size -->
+    <div style="position: fixed; top: 10px; left: 10px; z-index: 10000; color: white;">
+        <h1 id="windowSize" style="color: black;">Window Size: </h1>
+    </div>
+
+    <script>
+        const windowSizeElement = document.getElementById('windowSize');
+
+        // Function to update window size
+        function updateWindowSize() {
+            const windowHeight = window.innerHeight;
+            const windowWidth = window.innerWidth;
+            windowSizeElement.textContent = `Window Size: ${windowHeight}px x ${windowWidth}px`;
+            console.log('Window Height:', windowHeight, 'Window Width:', windowWidth);
+        }
+
+        // Set initial window size
+        updateWindowSize();
+
+        // Update window size when the window is resized
+        window.addEventListener('resize', updateWindowSize);
+    </script>
+
+    <!-- Main Content Sections -->
+    <section>
+        <div class="hero">
+            <h1>Opening Section</h1>
+            <p>You wake up in an unfamiliar field</p>
+            <button onclick="walkAround()">Walk around</button>
+        </div>
+        <!-- This should snap to the next section -->
+    </section>
+    
+    <section>
+        <div class="section-1">
+            <h1>Section 1</h1><br>
+            <p>You come across an empty field and see three items</p>
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <button onclick="selectOption('book')">Take Book (+1 Int)</button>
+                <button onclick="selectOption('stick')">Take Stick (+1 Attk)</button>
+                <button onclick="selectOption('key')">Take Key (Item)</button>
+            </div>
+            <p class="result" id="result"></p>
+        </div>
+    </section>
+    
+    <section>
+        <div class="section-2">
+            <h1>Section 2</h1>
+            <p>You enter a mysterious forest. You find three paths ahead.</p>
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <button onclick="choosePath('left')">Left Path</button>
+                <button onclick="choosePath('center')">Center Path</button>
+                <button onclick="choosePath('right')">Right Path</button>
+            </div>
+            <p class="result" id="path-result"></p>
+        </div>
+    </section>
+    
+    <section>
+        <div class="section-3">
+            <h1>Section 3</h1>
+            <p>You come across an old wizard. He offers you three spells to choose from.</p>
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <button onclick="castSpell('fireball')">Fireball</button>
+                <button onclick="castSpell('heal')">Heal</button>
+                <button onclick="castSpell('shield')">Shield</button>
+            </div>
+            <p class="result" id="spell-result"></p>
+        </div>
+    </section>
+    
+    <section>
+        <div class="section-4">
+            <h1>Section 4</h1>
+            <p>You encounter a choice: what will you do?</p>
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <button onclick="makeChoice('explore')">Explore</button>
+                <button onclick="makeChoice('rest')">Rest</button>
+                <button onclick="makeChoice('fight')">Fight</button>
+            </div>
+            <p class="result" id="action-result"></p>
+        </div>
+    </section>
+    
+    <section>
+        <div class="section-5">
+            <h1>Final Section</h1>
+            <div style="grid-template-columns: auto;">
+                <p>Congratulations! You've reached the end of the sections.</p>
+                <p>You are a <span id="final-result"></span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript to handle the loading screen and option selection -->
+    <script>
+        // Add event listener for window load
+        window.addEventListener('load', function() {
+            // Wait for at least 5 seconds before hiding the loading screen
+            setTimeout(function() {
+                // Hide the loading screen
+                const loadingScreen = document.getElementById('loading-screen');
+                loadingScreen.style.display = 'none';
+            }, 5000); // 5000ms = 5 seconds
+        });
+
+        // Function to update the result text based on user selection
+        function selectOption(choice) {
+            let resultText = '';
+            let finalResult = '';
+
+            if (choice === 'book') {
+                resultText = 'You gain knowledge and wisdom!';
+                finalResult = 'Scholar';
+            } else if (choice === 'stick') {
+                resultText = 'You gain strength and power!';
+                finalResult = 'Warrior';
+            } else if (choice === 'key') {
+                resultText = 'You now hold an item of great mystery!';
+                finalResult = 'Explorer';
+            }
+
+            document.getElementById('result').textContent = resultText;
+            document.getElementById('final-result').textContent = finalResult;
+        }
+
+        // Function for path selection in Section 2
+        function choosePath(path) {
+            let pathText = '';
+            if (path === 'left') {
+                pathText = 'You walk down the left path and encounter a dragon!';
+            } else if (path === 'center') {
+                pathText = 'You take the center path and find a hidden treasure!';
+            } else if (path === 'right') {
+                pathText = 'You venture right and discover an ancient temple!';
+            }
+            document.getElementById('path-result').textContent = pathText;
+        }
+
+        // Function for spell casting in Section 3
+        function castSpell(spell) {
+            let spellText = '';
+            if (spell === 'fireball') {
+                spellText = 'You cast a fiery explosion that scorches your enemies!';
+            } else if (spell === 'heal') {
+                spellText = 'You heal yourself, restoring your health!';
+            } else if (spell === 'shield') {
+                spellText = 'You summon a magical shield for protection!';
+            }
+            document.getElementById('spell-result').textContent = spellText;
+        }
+
+        // Function for action in Section 4
+        function makeChoice(action) {
+            let actionText = '';
+            if (action === 'explore') {
+                actionText = 'You explore the surroundings and discover a hidden secret!';
+            } else if (action === 'rest') {
+                actionText = 'You rest and regain your strength!';
+            } else if (action === 'fight') {
+                actionText = 'You fight a wild beast and emerge victorious!';
+            }
+            document.getElementById('action-result').textContent = actionText;
+        }
+    </script>
+</body>
+</html>

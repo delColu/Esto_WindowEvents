@@ -1,0 +1,241 @@
+  
+  /* Style for the loading screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Slight transparency */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2em;
+            z-index: 9999; /* Ensure it stays on top */
+            flex-direction: column;
+            transition: opacity 0.5s ease;
+        }
+
+        #loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 20px;
+            background: linear-gradient(90deg, #ff0000, #ff9900);
+            width: 0%;
+            z-index: 20000;
+            transition: width 0.1s linear;
+
+        }
+
+        /* Warning screen container */
+        #warning-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none; /* hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        /* Actual warning */
+        .warning {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(199, 3, 3, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            font-size: 2em;
+            animation: flashWarning 0.8s ease-in-out 5;
+        }
+
+        /* Flash animation */
+        @keyframes flashWarning {
+            0%   { opacity: 0; }
+            50%  { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Overlay style */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(128, 128, 128, 0.5); /* Grey with transparency */
+            z-index: 9999;
+            display: none; /* Hidden by default */
+            pointer-events: none; /* Make the overlay non-interactive */
+        }
+
+        /* Optional: For any elements with an overlay, adjust styles */
+        .overlay-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        /* Animation for the loading spinner */
+        .loader {
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-top: 8px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Style for body and sections */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            overflow-y: scroll; /* Ensure we can scroll */
+        }
+
+        section {
+            scroll-snap-align: start; /* Make sections snap to the start */
+        }
+
+        html, body {
+            scroll-snap-type: y mandatory;
+        }
+
+        .hero, .section-1, .section-2, .section-3, .section-4, .section-5 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        section {
+            opacity: 0.3;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        section.unlocked {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center */
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .section-1 {
+            background-color: #790f0f;
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center */
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .section-1 h1, .section-2 h1, .section-3 h1, .section-4 h1 {
+            color: white;
+        }
+
+        .section-1 p, .section-2 p, .section-3 p, .section-4 p {
+            color: white;
+        }
+
+        .section-2 {
+            background-color: #072da7;
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center */
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .section-3 {
+            background-color: #0d7009;
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center */
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .section-4 {
+            background: linear-gradient(45deg, #6a0b00, #a802c1);
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center */
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .section-5 {
+            background: linear-gradient(45deg, black, white);
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center */
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .section-1 div,
+        .section-2 div,
+        .section-3 div,
+        .section-4 div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .section-1 div,
+            .section-2 div,
+            .section-3 div,
+            .section-4 div {
+                flex-direction: row;
+            }
+        }
+
+        /* Style for the button */
+        button {
+            padding: 12px 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border: 2px solid #fff;
+            border-radius: 8px;
+            background-color: transparent;
+            color: white;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #fff;
+            color: black;
+            transform: scale(1.1);
+        }
+
+        button:active {
+            transform: scale(1.05);
+        }
+
+        /* Added style for the result text */
+        .result {
+            font-size: 1.5em;
+            color: white;
+            margin-top: 20px;
+        }
